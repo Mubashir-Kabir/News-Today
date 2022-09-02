@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>News Today</title>
 
+    <!-- font awsome cdn  -->
+    <script
+      src="https://kit.fontawesome.com/4acf222c6e.js"
+      crossorigin="anonymous"
+    ></script>
+
     <!-- custom css link  -->
     <link rel="stylesheet" href="./style.css" />
 
@@ -35,7 +41,7 @@
         </nav>
       </section>
 
-      <!-- Category section  -->
+      <!-- Categories navbar section  -->
       <section class="container">
         <nav class="navbar navbar-expand-lg bg-light">
           <div class="container-fluid">
@@ -56,17 +62,88 @@
                 class="navbar-nav w-100 justify-content-between"
               >
                 <!-- <a class="nav-link active" aria-current="page" href="#">Home</a>
-                <a class="nav-link" href="#">Features</a>
-                <a class="nav-link" href="#">Pricing</a>
-                <a class="nav-link" href="#">Pricing</a>
-                <a class="nav-link" href="#">Pricing</a>
-                <a class="nav-link" href="#">Pricing</a> -->
+                <div>
+                  <a class="nav-link" onclick="cardDisplayByCategory()" href="#"
+                    >Features</a
+                  >
+                </div>
+                <div><a class="nav-link" href="#">Pricing</a></div>
+                <div><a class="nav-link" href="#">Pricing</a></div>
+                <div><a class="nav-link" href="#">Pricing</a></div>
+                <div><a class="nav-link" href="#">Pricing</a></div> -->
               </div>
             </div>
           </div>
         </nav>
       </section>
     </header>
+
+    <main>
+      <!-- item found section  -->
+      <section class="container bg-white rounded mt-3">
+        <h5 class="px-3 py-3">
+          <span>0 </span> items found for category <span>Entertainment</span>
+        </h5>
+      </section>
+
+      <!-- all cards to display sction  -->
+      <section class="container">
+        <div id="cardContainer">
+          <!-- <div class="row g-5 align-items-center">
+            <div class="cardImg col-12 col-md-4">
+              <img
+                class="w-100"
+                src="https://i.ibb.co/QnwC4sG/unsplash-Eh-Tc-C9s-YXsw-11.png"
+                alt=""
+              />
+            </div>
+            <div class="cardDescription col-12 col-md-8">
+              <h4 class="fw-bold">
+                The best fashion influencers to follow for sartorial inspiration
+              </h4>
+              <p class="mt-5">
+                From our favourite UK influencers to the best missives from
+                Milan and the coolest New Yorkers, read on some of the best
+                fashion blogs out there, and for even more inspiration, do head
+                to our separate black fashion influencer round-up. Fancy some
+                shopping deals? Check out these amazing sales: Zara Black
+                Friday, ASOS Black Friday, Missoma Black Friday and Gucci Black
+                Friday...
+              </p>
+              <div
+                class="mt-5 row row-cols-4 g-2 justify-content-between align-items-center"
+              >
+                <div class="col row align-items-center text-center">
+                  <img
+                    class="col-4 rounded-circle"
+                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
+                    alt=""
+                  />
+                  <div class="col-8">
+                    <p class="fs-custom">Jane Cooper</p>
+                    <p class="text-muted fs-custom">Jan 10, 2022</p>
+                  </div>
+                </div>
+                <div class="col text-center">
+                  <i class="fa-regular fa-eye"></i>
+                  <span>1.5M</span>
+                </div>
+                <div class="col text-center">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star-half-stroke"></i>
+                  <i class="fa-regular fa-star"></i>
+                </div>
+                <div class="col text-center">
+                  <a onclick="cardModalShow()" href=""><i class="fa-solid fs-1 fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </section>
+    </main>
 
     <!-- main js (app.js) -->
     <script src="./app.js"></script>
