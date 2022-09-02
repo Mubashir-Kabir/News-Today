@@ -13,7 +13,7 @@ const displayCategory = (categories) => {
     div.innerHTML = `
         <a class="nav-link" onclick="categoryClickHandle('${
           category.category_id
-        }')" href="#"
+        }','${this}')" href="#"
             >${
               category.category_name
                 ? category.category_name
@@ -26,10 +26,14 @@ const displayCategory = (categories) => {
 };
 
 // category click handle and fetch api
-const categoryClickHandle = (id) => {
+const categoryClickHandle = (id, cat) => {
+  console.log(cat);
   fetch(`https://openapi.programming-hero.com/api/news/category/${id}`)
     .then((res) => res.json())
-    .then((data) => cardDisplayByCategory(data.data))
+    .then((data) => {
+      document.getElementById("itemFound").innerText = data.data.length;
+      cardDisplayByCategory(data.data);
+    })
     .catch((error) =>
       console.log(error, `api with id ('${id}') cousing error`)
     );
@@ -54,7 +58,7 @@ const cardDisplayByCategory = (posts) => {
                 ${post.title}
               </h4>
               <p class="mt-5">
-                ${post.details.slice(0, 500)}
+                ${post.details.slice(0, 600)}...
               </p>
               <div
                 class="mt-5 row row-cols-4 g-2 justify-content-between align-items-center"
