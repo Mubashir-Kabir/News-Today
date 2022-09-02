@@ -45,20 +45,22 @@ const cardDisplayByCategory = (posts) => {
     // console.log(post);
     const div = document.createElement("div");
     div.innerHTML = `
-     <div class="row g-5 align-items-center mb-4">
-            <div class="cardImg col-12 col-md-4">
+     <div class="row bg-white rounded px-3 py-2 g-5 align-items-center  my-4">
+            <div class="cardImg col-12 col-md-4 mt-0">
               <img
                 class="w-100"
                 src='${post.thumbnail_url}'
-                alt=""
+                alt="image not found"
               />
             </div>
             <div class="cardDescription col-12 col-md-8">
               <h4 class="fw-bold">
-                ${post.title}
+                ${post.title ? post.title : "No tittle found"}
               </h4>
               <p class="mt-5">
-                ${post.details.slice(0, 600)}...
+                ${
+                  post.details ? post.details.slice(0, 600) : "No details found"
+                }...
               </p>
               <div
                 class="mt-5 row row-cols-4 g-2 justify-content-between align-items-center"
@@ -67,18 +69,24 @@ const cardDisplayByCategory = (posts) => {
                   <img
                     class="col-4 rounded-circle"
                     src='${post.author.img}'
-                    alt=""
+                    alt="not found"
                   />
                   <div class="col-8">
-                    <p class="fs-custom">${post.author.name}</p>
+                    <p class="fs-custom">${
+                      post.author.name ? post.author.name : "not found"
+                    }</p>
                     <p class="text-muted fs-custom">${
                       post.author.published_date
+                        ? post.author.published_date
+                        : "not found"
                     }</p>
                   </div>
                 </div>
                 <div class="col text-center">
                   <i class="fa-regular fa-eye"></i>
-                  <span>${post.total_view}</span>
+                  <span>${
+                    post.total_view ? post.total_view : "not found"
+                  }</span>
                 </div>
                 <div class="col text-center">
                   <i class="fa-solid fa-star"></i>
@@ -88,9 +96,10 @@ const cardDisplayByCategory = (posts) => {
                   <i class="fa-regular fa-star"></i>
                 </div>
                 <div class="col text-center">
-                  <a onclick="cardModalShow('${
-                    post._id
-                  }')" href=""><i class="fa-solid fs-1 fa-arrow-right"></i></a>
+                  <button type="button" data-bs-toggle="modal"
+                     data-bs-target="#newsModal" class="border-0 text-primary bg-white" onclick="cardModalShow('${
+                       post._id
+                     }')" href=""><i class="fa-solid fs-1 fa-arrow-right"></i></button>
                 </div>
               </div>
             </div>
@@ -98,4 +107,72 @@ const cardDisplayByCategory = (posts) => {
     `;
     document.getElementById("cardContainer").appendChild(div);
   });
+};
+
+// modal handle
+const cardModalShow = (id) => {
+  fetch(`https://openapi.programming-hero.com/api/news/${id}`)
+    .then((res) => res.json())
+    .then((data) => modalShow(data.data[0]))
+    .catch((error) =>
+      console.log(error, "Something is wrong please try again")
+    );
+};
+
+const modalShow = (post) => {
+  console.log(post);
+  document.getElementById("newsModalLabel").innerText = post.title;
+  document.getElementById("modalBody").innerHTML = ``;
+  const div = document.createElement("div");
+  div.innerHTML = `
+     <div class="row g-5 align-items-center mb-4">
+            <div class="cardImg col-12">
+              <img
+                class="w-100"
+                src='${post.image_url}'
+                alt="image not found"
+              />
+            </div>
+            <div class="cardDescription col-12">
+              <p class="mt-5">
+                ${post.details ? post.details : "No details found"}
+              </p>
+              <div
+                class="mt-5 row row-cols-3 g-2 justify-content-between align-items-center"
+              >
+                <div class="col row align-items-center text-center">
+                  <img
+                    class="col-12 rounded-circle"
+                    src='${post.author.img}'
+                    alt="not found"
+                  />
+                  <div class="col-12">
+                    <p class="fs-custom">${
+                      post.author.name ? post.author.name : "not found"
+                    }</p>
+                    <p class="text-muted fs-custom">${
+                      post.author.published_date
+                        ? post.author.published_date
+                        : "not found"
+                    }</p>
+                  </div>
+                </div>
+                <div class="col text-center">
+                  <i class="fa-regular fa-eye"></i>
+                  <span>${
+                    post.total_view ? post.total_view : "not found"
+                  }</span>
+                </div>
+                <div class="col text-center">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star-half-stroke"></i>
+                  <i class="fa-regular fa-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+    `;
+  document.getElementById("modalBody").appendChild(div);
 };

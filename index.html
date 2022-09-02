@@ -81,10 +81,7 @@
     <main>
       <!-- item found section  -->
       <section class="container bg-white rounded mt-3">
-        <h5 class="px-3 py-3">
-          <span id="itemFound">0 </span> items found for category
-          <span>Entertainment</span>
-        </h5>
+        <h5 class="px-3 py-3"><span id="itemFound">0 </span> Items found</h5>
       </section>
 
       <!-- all cards to display sction  -->
@@ -145,6 +142,51 @@
         </div>
       </section>
     </main>
+    <footer></footer>
+
+    <!-- modal  -->
+    <!-- Button trigger modal -->
+    <!-- <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#newsModal"
+    >
+      Launch demo modal
+    </button> -->
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="newsModal"
+      tabindex="-1"
+      aria-labelledby="newsModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newsModalLabel">Modal title</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div id="modalBody" class="modal-body"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- main js (app.js) -->
     <script src="./app.js"></script>
