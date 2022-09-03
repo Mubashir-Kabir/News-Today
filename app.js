@@ -23,7 +23,7 @@ const displayCategory = (categories) => {
             >${
               category.category_name
                 ? category.category_name
-                : "Ctgry not found"
+                : "Category name not found"
             }</a
         >
     `;
@@ -62,7 +62,10 @@ const cardDisplayByCategory = (posts) => {
     // console.log(post);
     const div = document.createElement("div");
     div.innerHTML = `
-     <div class="row bg-white rounded px-3 py-2 g-5 align-items-center  my-4">
+     <div class="row bg-white rounded px-3 py-2 g-5 align-items-center  my-4" onclick="cardModalShow('${
+       post._id
+     }')" data-bs-toggle="modal"
+                     data-bs-target="#newsModal">
             <div class="cardImg col-12 col-md-4 mt-0">
               <img
                 class="w-100"
@@ -76,11 +79,11 @@ const cardDisplayByCategory = (posts) => {
               </h4>
               <p class="mt-5">
                 ${
-                  post.details ? post.details.slice(0, 600) : "No details found"
+                  post.details ? post.details.slice(0, 500) : "No details found"
                 }...
               </p>
               <div
-                class="mt-5 row row-cols-4 g-2 justify-content-between align-items-center"
+                class="mt-5 row row-cols-1 row-cols-md-4 g-2 justify-content-between align-items-center"
               >
                 <div class="col row align-items-center text-center">
                   <img
@@ -113,10 +116,7 @@ const cardDisplayByCategory = (posts) => {
                   <i class="fa-regular fa-star"></i>
                 </div>
                 <div class="col text-center">
-                  <button type="button" data-bs-toggle="modal"
-                     data-bs-target="#newsModal" class="border-0 text-primary bg-white" onclick="cardModalShow('${
-                       post._id
-                     }')" href=""><i class="fa-solid fs-1 fa-arrow-right"></i></button>
+                  <button type="button"  class="border-0 text-primary bg-white"  href=""><i class="fa-solid fs-1 fa-arrow-right"></i></button>
                 </div>
               </div>
             </div>
@@ -138,7 +138,7 @@ const cardModalShow = (id) => {
 };
 
 const modalShow = (post) => {
-  console.log(post);
+  // console.log(post);
   document.getElementById("newsModalLabel").innerText = post.title;
   document.getElementById("modalBody").innerHTML = ``;
   const div = document.createElement("div");
@@ -182,11 +182,11 @@ const modalShow = (post) => {
                   }</span>
                 </div>
                 <div class="col text-center">
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-regular fa-star-half-stroke"></i>
-                  <i class="fa-regular fa-star"></i>
+                  <span>rating: </span><span class="fw-bold">${
+                    post.rating.number ? post.rating.number : "not found"
+                  } </span><span> ${
+    post.rating.badge ? post.rating.badge : "not found"
+  } </span>
                 </div>
               </div>
             </div>
