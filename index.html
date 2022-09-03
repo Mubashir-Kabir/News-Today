@@ -28,13 +28,20 @@
       <section class="container border-bottom">
         <nav class="navbar bg-light px-3">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#"
+            <a class="navbar-brand" href="./index.html"
               ><span class="bg-primary px-2 pt-1 pb-2 rounded me-2">News</span
               >Today</a
             >
             <div class="pe-5">
-              <a class="pe-3 text-decoration-none fw-bold" href="">News</a>
-              <a class="pe-3 text-decoration-none text-muted" href="">Blog</a>
+              <a id="newsPage" class="pe-3 text-decoration-none fw-bold" href=""
+                >News</a
+              >
+              <a
+                id="blogPage"
+                class="pe-3 text-decoration-none text-muted"
+                href="./blog.html"
+                >Blog</a
+              >
               <img class="" src="" alt="" />
             </div>
           </div>
@@ -42,7 +49,7 @@
       </section>
 
       <!-- Categories navbar section  -->
-      <section class="container">
+      <section id="navCategory" class="container">
         <nav class="navbar navbar-expand-lg bg-light">
           <div class="container-fluid">
             <button
@@ -78,9 +85,9 @@
       </section>
     </header>
 
-    <main>
+    <main id="mainContainer">
       <!-- item found section  -->
-      <section class="container bg-white rounded mt-3">
+      <section id="itemFoundSection" class="container bg-white rounded mt-3">
         <h5 class="px-3 py-3"><span id="itemFound">0 </span> Items found</h5>
       </section>
 
@@ -142,7 +149,9 @@
         </div>
       </section>
     </main>
-    <footer></footer>
+    <footer class="mt-5 py-3 px-4 bg-white">
+      <p class="text-center">Copyright 2021 News Today</p>
+    </footer>
 
     <!-- modal  -->
     <!-- Button trigger modal -->

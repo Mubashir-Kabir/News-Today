@@ -1,10 +1,16 @@
 // Category section dynamic add
-fetch("https://openapi.programming-hero.com/api/news/categories")
-  .then((res) => res.json())
-  .then((data) => displayCategory(data.data.news_category))
-  .catch((error) =>
-    console.error(error, '"error occured when try to fetch api of categories"')
-  );
+const newsPage = () => {
+  fetch("https://openapi.programming-hero.com/api/news/categories")
+    .then((res) => res.json())
+    .then((data) => displayCategory(data.data.news_category))
+    .catch((error) =>
+      console.error(
+        error,
+        '"error occured when try to fetch api of categories"'
+      )
+    );
+};
+newsPage();
 
 //   display category Selection
 const displayCategory = (categories) => {
@@ -13,7 +19,7 @@ const displayCategory = (categories) => {
     div.innerHTML = `
         <a class="nav-link" onclick="categoryClickHandle('${
           category.category_id
-        }','${this}')" href="#"
+        }',${true})" href="#"
             >${
               category.category_name
                 ? category.category_name
@@ -22,17 +28,24 @@ const displayCategory = (categories) => {
         >
     `;
     document.getElementById("categoryContainer").appendChild(div);
+    categoryClickHandle("08");
   });
 };
 
 // category click handle and fetch api
-const categoryClickHandle = (id, cat) => {
-  console.log(cat);
+const categoryClickHandle = (id, click) => {
+  if (click) {
+    document.getElementById("itemFoundSection").style.display = "block";
+  }
+
   fetch(`https://openapi.programming-hero.com/api/news/category/${id}`)
     .then((res) => res.json())
     .then((data) => {
       document.getElementById("itemFound").innerText = data.data.length;
-      cardDisplayByCategory(data.data);
+      const sortByView = data.data.sort((a, b) => {
+        return b.total_view - a.total_view;
+      });
+      cardDisplayByCategory(sortByView);
     })
     .catch((error) =>
       console.log(error, `api with id ('${id}') cousing error`)
