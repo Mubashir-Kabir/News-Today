@@ -99,9 +99,9 @@ const cardDisplayByCategory = (posts) => {
               <div
                 class="mt-5 row row-cols-1 row-cols-md-4 g-2 justify-content-between align-items-center"
               >
-                <div class="col row align-items-center text-center">
+                <div class="col row align-items-center justify-content-center text-center">
                   <img
-                    class="col-4 rounded-circle"
+                    class="col-4 rounded-circle w-50"
                     src='${post.author.img}'
                     alt="not found"
                   />
@@ -174,9 +174,9 @@ const modalShow = (post) => {
               <div
                 class="mt-5 row row-cols-3 g-2 justify-content-between align-items-center"
               >
-                <div class="col row align-items-center text-center">
+                <div class="col row align-items-center justify-content-center text-center">
                   <img
-                    class="col-12 rounded-circle"
+                    class="col-12 rounded-circle w-75 "
                     src='${post.author.img}'
                     alt="not found"
                   />
