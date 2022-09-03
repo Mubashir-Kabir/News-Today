@@ -8,3 +8,6 @@ a:hover {
 #itemFoundSection {
   display: none;
 }
+.loadingSpinner {
+  display: none;
+}

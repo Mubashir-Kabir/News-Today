@@ -28,6 +28,7 @@ const displayCategory = (categories) => {
         >
     `;
     document.getElementById("categoryContainer").appendChild(div);
+    spinnnerToggle(true);
     categoryClickHandle("08");
   });
 };
@@ -37,23 +38,26 @@ const categoryClickHandle = (id, click) => {
   if (click) {
     document.getElementById("itemFoundSection").style.display = "block";
   }
+  spinnnerToggle(true);
+  document.getElementById("cardContainer").innerHTML = ``;
 
   fetch(`https://openapi.programming-hero.com/api/news/category/${id}`)
     .then((res) => res.json())
     .then((data) => {
-      document.getElementById("itemFound").innerText = data.data.length;
+      if (data.data.length === 0) {
+        document.getElementById("itemFound").innerText = "No";
+      } else {
+        document.getElementById("itemFound").innerText = data.data.length;
+      }
       const sortByView = data.data.sort((a, b) => {
         return b.total_view - a.total_view;
       });
       cardDisplayByCategory(sortByView);
     })
-    .catch((error) =>
-      console.log(error, `api with id ('${id}') cousing error`)
-    );
+    .catch((error) => console.log(error, `api feching cousing error`));
 };
 // category wise card display
 const cardDisplayByCategory = (posts) => {
-  document.getElementById("cardContainer").innerHTML = ``;
   posts.forEach((post) => {
     // console.log(post);
     const div = document.createElement("div");
@@ -120,6 +124,7 @@ const cardDisplayByCategory = (posts) => {
     `;
     document.getElementById("cardContainer").appendChild(div);
   });
+  spinnnerToggle(false);
 };
 
 // modal handle
@@ -188,4 +193,13 @@ const modalShow = (post) => {
           </div>
     `;
   document.getElementById("modalBody").appendChild(div);
+};
+
+// spinner toggler
+const spinnnerToggle = (status) => {
+  if (status) {
+    document.getElementById("loadingSpinner").style.display = "block";
+  } else {
+    document.getElementById("loadingSpinner").style.display = "none";
+  }
 };
