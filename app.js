@@ -1,3 +1,11 @@
+// spinner toggler
+const spinnnerToggle = (status) => {
+  if (status) {
+    document.getElementById("loadingSpinner").style.display = "block";
+  } else {
+    document.getElementById("loadingSpinner").style.display = "none";
+  }
+};
 // Category section dynamic add
 const newsPage = () => {
   fetch("https://openapi.programming-hero.com/api/news/categories")
@@ -28,13 +36,17 @@ const displayCategory = (categories) => {
         >
     `;
     document.getElementById("categoryContainer").appendChild(div);
-    spinnnerToggle(true);
-    categoryClickHandle("08");
   });
 };
 
 // category click handle and fetch api
-const categoryClickHandle = (id, click) => {
+const categoryClickHandle = (id, click = false) => {
+  const btn = document.getElementById("todaysPicBtn");
+  btn.classList.remove("btn-primary");
+  btn.classList.add("btn-outline-primary");
+  const btn2 = document.getElementById("trendingBtn");
+  btn2.classList.remove("btn-primary");
+  btn2.classList.add("btn-outline-primary");
   if (click) {
     document.getElementById("itemFoundSection").style.display = "block";
   }
@@ -58,6 +70,8 @@ const categoryClickHandle = (id, click) => {
 };
 // category wise card display
 const cardDisplayByCategory = (posts) => {
+  document.getElementById("cardContainer").innerHTML = ``;
+
   posts.forEach((post) => {
     // console.log(post);
     const div = document.createElement("div");
@@ -126,6 +140,8 @@ const cardDisplayByCategory = (posts) => {
   });
   spinnnerToggle(false);
 };
+spinnnerToggle(true);
+categoryClickHandle("08");
 
 // modal handle
 const cardModalShow = (id) => {
@@ -195,11 +211,70 @@ const modalShow = (post) => {
   document.getElementById("modalBody").appendChild(div);
 };
 
-// spinner toggler
-const spinnnerToggle = (status) => {
-  if (status) {
-    document.getElementById("loadingSpinner").style.display = "block";
+// ===============================================================
+// Todays pic btn hndle
+document.getElementById("todaysPicBtn").addEventListener("click", () => {
+  const btn = document.getElementById("todaysPicBtn");
+  btn.classList.remove("btn-outline-primary");
+  btn.classList.add("btn-primary");
+  const btn2 = document.getElementById("trendingBtn");
+  btn2.classList.remove("btn-primary");
+  btn2.classList.add("btn-outline-primary");
+  fetch(`https://openapi.programming-hero.com/api/news/category/08`)
+    .then((res) => res.json())
+    .then((data) => picToday(data.data))
+    .catch((error) => console.log(error));
+});
+
+const picToday = (data) => {
+  const todaysPic = [];
+  data.forEach((element) => {
+    if (element.others_info.is_todays_pick) {
+      todaysPic.push(element);
+    }
+  });
+  if (todaysPic.length === 0) {
+    document.getElementById("itemFound").innerText = "No";
   } else {
-    document.getElementById("loadingSpinner").style.display = "none";
+    document.getElementById("itemFound").innerText = todaysPic.length;
   }
+  document.getElementById("itemFoundSection").style.display = "block";
+
+  const sortByView = todaysPic.sort((a, b) => {
+    return b.total_view - a.total_view;
+  });
+  cardDisplayByCategory(sortByView);
+};
+
+// trends btn hndle
+document.getElementById("trendingBtn").addEventListener("click", () => {
+  const btn2 = document.getElementById("trendingBtn");
+  btn2.classList.remove("btn-outline-primary");
+  btn2.classList.add("btn-primary");
+  const btn = document.getElementById("todaysPicBtn");
+  btn.classList.remove("btn-primary");
+  btn.classList.add("btn-outline-primary");
+  fetch(`https://openapi.programming-hero.com/api/news/category/08`)
+    .then((res) => res.json())
+    .then((data) => trends(data.data))
+    .catch((error) => console.log(error));
+});
+
+const trends = (data) => {
+  const trends = [];
+  data.forEach((element) => {
+    if (element.others_info.is_trending) {
+      trends.push(element);
+    }
+  });
+  if (trends.length === 0) {
+    document.getElementById("itemFound").innerText = "No";
+  } else {
+    document.getElementById("itemFound").innerText = trends.length;
+  }
+  document.getElementById("itemFoundSection").style.display = "block";
+  const sortByView = trends.sort((a, b) => {
+    return b.total_view - a.total_view;
+  });
+  cardDisplayByCategory(sortByView);
 };

@@ -11,3 +11,7 @@ a:hover {
 .loadingSpinner {
   display: none;
 }
+#categoryContainer a:focus {
+  color: rgb(75, 113, 184);
+  font-weight: 600;
+}
